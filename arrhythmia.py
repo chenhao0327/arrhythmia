@@ -52,10 +52,10 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
 def Introduction():
-    st.write("# 欢迎来到陈浩手术的随访数据! 👏🏻")
+    st.write("# 这是陈浩手术的随访数据! ")
     st.markdown(
         """
-        本网站是陈浩医生私人搭建的随访数据收集网站，为了更好的管理手术患者。
+        本网站是陈浩医生私人的随访数据网站，为了更好的管理手术患者而搭建。
 
     """
     )
@@ -63,6 +63,7 @@ def Introduction():
 def PM():
     name = st.text_input('姓名（很重要请务必写对）')
     ip=st.text_input('住院号')
+    tel=st.text_input('联系方式')
     birth = st.date_input('生日（很重要请务必写对）')
     birthage = datetime.date.today().year - birth.year
     age = st.number_input('年龄（岁）',birthage)
@@ -77,24 +78,24 @@ def PM():
             with open("PM.csv","r", encoding='utf8', newline='') as f:# 以读的方式打开csv，判断是否存在标题
                 reader = csv.reader(f)
                 if not [row for row in reader]:
-                    writer.writerow(["姓名",'住院号',"生日","年龄","性别","手术或随访日期","手术或随访经过",'诊断'])
-                    writer.writerow([name,ip,birth,age,sexual,pm_date,pm,diagnosis])
+                    writer.writerow(["姓名",'住院号','联系方式',"生日","年龄","性别","手术或随访日期","手术或随访经过",'诊断'])
+                    writer.writerow([name,ip,tel,birth,age,sexual,pm_date,pm,diagnosis])
                 else:
-                    writer.writerow([name,ip,birth,age,sexual,pm_date,pm,diagnosis])
+                    writer.writerow([name,ip,tel,birth,age,sexual,pm_date,pm,diagnosis])
 
     if __name__ == '__main__':
         if st.button("提交"):
             inr()
     data = pd.read_csv('PM.csv')
     data2 = data.loc[(data['姓名'] == name)]
-    data3 = data[['姓名','住院号','手术或随访日期']]
+    data3 = data[['姓名','住院号','手术或随访日期','联系方式']]
     if st.button("你的既往手术历史"):
         st.table(data2)
     if st.button('所有患者信息'):
         st.table(data3)
     jibing = st.selectbox('你想查什么疾病病人的信息',options=['S_PM','D_PM','LBBP','ICD','CRT'])
     data5 = data.loc[(data['诊断']== jibing)]
-    data4 = data5[['姓名','住院号','手术或随访日期']]
+    data4 = data5[['姓名','住院号','手术或随访日期','联系方式']]
     if st.button('你是想查%s病人吗' % jibing):
         st.table(data4)
 
@@ -103,6 +104,7 @@ def PM():
 def RFCA_AF():
     name = st.text_input('姓名（很重要请务必写对）')
     ip=st.text_input('住院号')
+    tel=st.text_input('联系方式')
     birth = st.date_input('生日（很重要请务必写对）')
     birthage = datetime.date.today().year - birth.year
     age = st.number_input('年龄（岁）',birthage)
@@ -116,17 +118,17 @@ def RFCA_AF():
             with open("AF.csv","r", encoding='utf8', newline='') as f:# 以读的方式打开csv，判断是否存在标题
                 reader = csv.reader(f)
                 if not [row for row in reader]:
-                    writer.writerow(["姓名",'住院号',"生日","年龄","性别","手术或随访日期","手术或随访经过",'左房前后径'])
-                    writer.writerow([name,ip,birth,age,sexual,pm_date,pm,LA])
+                    writer.writerow(["姓名",'住院号','联系方式',"生日","年龄","性别","手术或随访日期","手术或随访经过",'左房前后径'])
+                    writer.writerow([name,ip,tel,birth,age,sexual,pm_date,pm,LA])
                 else:
-                    writer.writerow([name,ip,birth,age,sexual,pm_date,pm,LA])
+                    writer.writerow([name,ip,tel,birth,age,sexual,pm_date,pm,LA])
 
     if __name__ == '__main__':
         if st.button("提交"):
             inr()
     data = pd.read_csv('AF.csv')
     data2 = data.loc[(data['姓名'] == name)]
-    data3 = data[['姓名','住院号','手术或随访日期']]
+    data3 = data[['姓名','住院号','手术或随访日期','联系方式']]
     if st.button("你的既往手术历史"):
         st.table(data2)
     chart_data = pd.DataFrame(
@@ -166,6 +168,7 @@ def RFCA_AF():
 def RFCA_others():
     name = st.text_input('姓名（很重要请务必写对）')
     ip=st.text_input('住院号')
+    tel=st.text_input('联系方式')
     birth = st.date_input('生日（很重要请务必写对）')
     birthage = datetime.date.today().year - birth.year
     age = st.number_input('年龄（岁）',birthage)
@@ -180,18 +183,18 @@ def RFCA_others():
             with open("others.csv","r", encoding='utf8', newline='') as f:# 以读的方式打开csv，判断是否存在标题
                 reader = csv.reader(f)
                 if not [row for row in reader]:
-                    writer.writerow(["姓名",'住院号',"生日","年龄","性别","手术或随访日期","手术或随访经过",'诊断','图片'])
-                    writer.writerow([name,ip,birth,age,sexual,pm_date,pm,diagnosis,image0])
+                    writer.writerow(["姓名",'住院号','联系方式',"生日","年龄","性别","手术或随访日期","手术或随访经过",'诊断','图片'])
+                    writer.writerow([name,ip,tel,birth,age,sexual,pm_date,pm,diagnosis,image0])
                 else:
-                    writer.writerow([name,ip,birth,age,sexual,pm_date,pm,diagnosis,image0])
+                    writer.writerow([name,ip,tel,birth,age,sexual,pm_date,pm,diagnosis,image0])
 
     if __name__ == '__main__':
         if st.button("提交"):
             inr()
     data = pd.read_csv('others.csv')
     data2 = data.loc[(data['姓名'] == name)]
-    data3 = data[['姓名','住院号','手术或随访日期']]
-    ima=data2.iloc[[0],[8]].values[0][0]
+    data3 = data[['姓名','住院号','手术或随访日期','联系方式']]
+    ima=data2.iloc[[0],[9]].values[0][0]
     #image = Image.open('%s' % ima)
     if st.button("你的既往手术历史"):
         st.table(data2)
@@ -202,7 +205,7 @@ def RFCA_others():
         st.table(data3)
     jibing = st.selectbox('你想查什么疾病病人的信息',options=['AVNRT','AVRT|AP','PVC|VT','PAC|AT','AFL'])
     data5 = data.loc[(data['诊断']== jibing)]
-    data4 = data5[['姓名','住院号','手术或随访日期']]
+    data4 = data5[['姓名','住院号','手术或随访日期','联系方式']]
     if st.button('你是想查%s病人吗' % jibing):
         st.table(data4)
 
